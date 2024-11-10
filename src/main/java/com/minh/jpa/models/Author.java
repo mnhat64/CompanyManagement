@@ -1,22 +1,25 @@
 package com.minh.jpa.models;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static jakarta.persistence.GenerationType.AUTO;
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 @Entity
-public class Author {
+public class Author extends BaseEntity {
 
-    @Id
-    @GeneratedValue
     /*
     @GeneratedValue(strategy = SEQUENCE, generator = "author_sequence")
     @SequenceGenerator(name="author_sequence", sequenceName = "author_sequence", allocationSize = 1)
@@ -32,8 +35,6 @@ public class Author {
             allocationSize = 1
     )
     */
-
-    private Integer id;
 
     @Column(
             name = "f_name",
@@ -51,13 +52,6 @@ public class Author {
 
     private int age;
 
-    @Column(
-            updatable = false
-    )
-    private LocalDateTime createdAt;
-
-    @Column(
-            insertable = false
-    )
-    private LocalDateTime lastModified;
+    @ManyToMany(mappedBy = "authors")
+    private List<Course> courses;
 }
