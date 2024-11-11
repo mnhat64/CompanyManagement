@@ -1,5 +1,6 @@
 package com.minh.jpa.models;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -7,9 +8,11 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-public class Text extends Resource {
+//@DiscriminatorValue("T")
+
+public class Text extends Resource{
     private String content;
 }
